@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{ url_for('try_it') }}" method="post" enctype="multipart/form-data">
+    
+    <h2>
+        <p class="diagnosis-dini-sebagai-screening-awal-penyakit-katarak-subheader">
+        DIAGNOSIS DINI SEBAGAI SCREENING AWAL PENYAKIT KATARAK
+        </p>
+    </h2>
+    <p class="diagnosis-dini-sebagai-screening-awal-penyakit-katarak-subheader">Sebelum mulai mengisi formulir diagnosis dibawah ini, sebaiknya Anda
+        membaca bagian Tutorial pada Menu 'About' terlebih dahulu:</p>
+    <head>
+        <link rel="stylesheet" href="style.css"
+    </head>
+    <body>
+        <div class="container">
+            <h3>IDENTITAS DIRI</h3>
+                <label for="name">Name:</label>
+                <br /><input type="text" name="name" id="name" required>
+                <br />
+                <br />
+                <label for="email">Email:</label>
+                <br /><input type="text" name="email" id="email" required>
+        </body>
+    
+    <br /><br />
+    <h3>SCREENING AWAL KATARAK DENGAN GAMBAR MATA</h3>
+    <p>Masukkan gambar mata Anda, seperti contoh dibawah ini dengan anjuran yang terdapat pada Menu 'About'</p>
+    <img
+        class="u-image u-image-round u-radius-10 u-image-3"
+        src="/static/img/MATURE7.jpg"
+        alt="MATURE7"
+        />
+
+        <br /><br /><label for="image">Upload Image:</label>
+    <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" required>
+
+    <br /><br />
+    <h3>KLASIFIKASI JENIS KATARAK BERDASARKAN PENYEBABNYA</h3>
+        <label for="dropdown">Usia:</label>
+        <br /><select name="Usia" id="Usia">
+        <option value="Berdasarkan Usia Anda, Klasifikasi Jenis Katarak: Katarak Kongenital">0-1 Tahun</option>
+        <option value="Berdasarkan Usia Anda, Klasifikasi Jenis Katarak: Katarak Senilis">40 Tahun atau lebih</option>
+        <option value="Usia Anda tidak mempengaruhi penyebab terjadinya katarak">Tidak dari semua pilihan diatas</option>
+        </select>
+
+        <br /><br /><label for="dropdown">Jenis Pekerjaan:</label>
+        <br /><select name="Jenis Pekerjaan" id="Jenis Pekerjaan">
+        <option value="Berdasarkan Jenis Pekerjaan Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Pekerjaan dengan paparan Sinar Radiasi X</option>
+        <option value="Berdasarkan Jenis Pekerjaan Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Pekerjaan dengan Paparan Sinar Radiasi Inframerah</option>
+        <option value="Berdasarkan Jenis Pekerjaan Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Pekerjaan dengan Paparan Sinar Radiasi Ultra Violet</option>
+        <option value="Berdasarkan Jenis Pekerjaan Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Pekerjaan dengan Paparan Sinar Radioaktif</option>
+        <option value="Berdasarkan Jenis Pekerjaan Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Pekerjaan dengan Paparan Bahan Kimia Berbahaya</option>
+        <option value="Jenis pekerjaan Anda tidak mempengaruhi penyebab terjadinya katarak">Tidak dari semua pilihan diatas</option>
+        </select>
+
+        <br /><br /><label for="dropdown">Riwayat Penyakit:</label>
+        <br /><select name="Riwayat Penyakit" id="Riwayat Penyakit">
+        <option value="Berdasarkan Riwayat Penyakit Anda, Klasifikasi Jenis Katarak: Katarak Komplikata">Kelainan Herediter (Siklopia, Koloboma, Mikroftalmia, Aniridia, Pembuluh Hialoid Persisten, Heterokrimia Iridis)</option>
+        <option value="Berdasarkan Riwayat Penyakit Anda, Klasifikasi Jenis Katarak: Katarak Komplikata">Degeneratif (Miopia, Distrofi Vitreo Retinal, Retinitis Pigmentosa, Neoplasma)</option>
+        <option value="Berdasarkan Riwayat Penyakit Anda, Klasifikasi Jenis Katarak: Katarak Komplikata">Sindrom (Kelainan Kulit, Tulang, dan Kromosom)</option>
+        <option value="Anda tidak memiliki riwayat penyakit atau riwayat penyakit Anda tidak mempengaruhi penyebab terjadinya katarak">Tidak dari semua pilihan diatas</option>
+    </select>
+
+        <br /><br /><label for="dropdown">Riwayat Luka:</label>
+        <br /><select name="Riwayat Luka" id="Riwayat Luka">
+        <option value="Berdasarkan Riwayat Luka Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Trauma Tumpul pada Bola Mata</option>
+        <option value="Berdasarkan Riwayat Luka Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Luka Memar pada Bola Mata</option>
+        <option value="Berdasarkan Riwayat Luka Anda, Klasifikasi Jenis Katarak: Katarak Traumatika">Luka Tusuk/Perforasi pada Bola Mata</option>
+        <option value="Anda tidak memiliki riwayat luka atau riwayat luka Anda tidak mempengaruhi penyebab terjadinya katarak">Tidak dari semua pilihan diatas</option>
+    </select>
+    <br /><br /><input type="submit" value="Submit">
+</form>
+{% endblock %}

@@ -61,10 +61,13 @@
 
   <!-- Rekomendasi -->
   <div class="result mb-4">
-    {% if prediction == "Katarak" and usia != "Usia Anda tidak mempengaruhi penyebab terjadinya katarak" and jenis_pekerjaan != "Jenis pekerjaan Anda tidak mempengaruhi penyebab terjadinya katarak" and riwayat_penyakit != "Anda tidak
-    memiliki riwayat penyakit atau riwayat penyakit Anda tidak mempengaruhi penyebab terjadinya katarak" and riwayat_luka != "Anda tidak memiliki riwayat luka atau riwayat luka Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+    {% if prediction == "Katarak" %} {% if usia == "Usia Anda tidak mempengaruhi penyebab terjadinya katarak" and jenis_pekerjaan == "Jenis pekerjaan Anda tidak mempengaruhi penyebab terjadinya katarak" and riwayat_penyakit == "Anda tidak
+    memiliki riwayat penyakit atau riwayat penyakit Anda tidak mempengaruhi penyebab terjadinya katarak" and riwayat_luka == "Anda tidak memiliki riwayat luka atau riwayat luka Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+    <span></span>
+    {% else %}
     <div class="alert alert-danger" role="alert">DISCLAIMER: SEBELUM MELAKUKAN REKOMENDASI TINDAK LANJUT DIBAWAH INI, DIHARAPKAN UNTUK MELAKUKAN KONSULTASI KEPADA DOKTER SPESIALIS MATA TERLEBIH DAHULU.</div>
     <h4>Rekomendasi Untuk Pasien</h4>
+    {% endif %}
 
     <!-- Rekomendasi Usia Pasien -->
 

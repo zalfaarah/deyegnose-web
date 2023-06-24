@@ -249,3 +249,28 @@ section h4 {
 .bordered-text-1 {
   color: #ffffff;
 }
+
+.result h4 {
+  margin-bottom: 1em;
+}
+
+.result-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.result {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.result img {
+  width: 240px;
+  border-radius: 10px;
+  margin-bottom: 1.5em;
+}
+
+.first-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

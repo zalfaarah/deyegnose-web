@@ -1,8 +1,289 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
-<h2>Result</h2>
-<p>Name: {{ name }}</p>
-<p>Email: {{ email }}</p>
-<p>Prediction: {{ prediction }}</p>
+<div class="container">
+  <h2>Result</h2>
+  <div class="result-wrapper">
+    <div class="first-row">
+      <!-- Data Diri -->
+      <div class="result">
+        <h4>Data Diri</h4>
+        <p>Nama: {{ nama }}</p>
+        <p>Email: {{ email }}</p>
+      </div>
+
+      <!-- Hasil Prediksi -->
+      {% if prediction %}
+      <div class="result mb-4">
+        <h4>Hasil Prediksi</h4>
+        <img src="{{ image_path }}" alt="Preview gambar" />
+        <p>Prediksi: <b>{{ prediction }}</b></p>
+        <p>Nilai Confidence: <b>{{ confidence_score }}%</b></p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Jenis Katarak Pasien -->
+    {% if prediction == "Katarak" %}
+    <div class="result">
+      <h4>Jenis Katarak Pasien</h4>
+      <!-- Usia -->
+      {% if usia == "0-1 Tahun" %}
+      <p>Usia Pasien: <b>{{ usia }} (Katarak Kongenital)</b></p>
+      {% elif usia == "40 Tahun atau Lebih" %}
+      <p>Usia Pasien: <b>{{ usia }} (Katarak Senilis)</b></p>
+      {% else %}
+      <p>Usia Pasien: <b>{{ usia }}</b></p>
+      {% endif %}
+
+      <!-- Jenis Pekerjaan -->
+      {% if jenis_pekerjaan == "Jenis pekerjaan Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+      <p>Jenis Bahaya Dari Pekerjaan: <b>{{ jenis_pekerjaan }}</b></p>
+      {% else %}
+      <p>Jenis Bahaya Dari Pekerjaan: <b>{{ jenis_pekerjaan }} (Katarak Traumatika)</b></p>
+      {% endif %}
+
+      <!-- Riwayat Penyakit -->
+      {% if riwayat_penyakit == "Anda tidak memiliki riwayat penyakit atau riwayat penyakit Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+      <p>Riwayat Penyakit: <b>{{ riwayat_penyakit }}</b></p>
+      {% else %}
+      <p>Riwayat Penyakit: <b>{{ riwayat_penyakit }} (Katarak Komplikata)</b></p>
+      {% endif %}
+
+      <!-- Riwayat Luka -->
+      {% if riwayat_luka == "Anda tidak memiliki riwayat luka atau riwayat luka Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+      <p>Riwayat Luka Pada Mata: <b>{{ riwayat_luka }}</b></p>
+      {% else %}
+      <p>Riwayat Luka Pada Mata: <b>{{ riwayat_luka }} (Katarak Traumatika)</b></p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Rekomendasi -->
+  <div class="result mb-4">
+    {% if prediction == "Katarak" and usia != "Usia Anda tidak mempengaruhi penyebab terjadinya katarak" and jenis_pekerjaan != "Jenis pekerjaan Anda tidak mempengaruhi penyebab terjadinya katarak" and riwayat_penyakit != "Anda tidak
+    memiliki riwayat penyakit atau riwayat penyakit Anda tidak mempengaruhi penyebab terjadinya katarak" and riwayat_luka != "Anda tidak memiliki riwayat luka atau riwayat luka Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+    <div class="alert alert-danger" role="alert">DISCLAIMER: SEBELUM MELAKUKAN REKOMENDASI TINDAK LANJUT DIBAWAH INI, DIHARAPKAN UNTUK MELAKUKAN KONSULTASI KEPADA DOKTER SPESIALIS MATA TERLEBIH DAHULU.</div>
+    <h4>Rekomendasi Untuk Pasien</h4>
+
+    <!-- Rekomendasi Usia Pasien -->
+
+    {% if usia == "0-1 Tahun" %}
+    <p><b>Katarak Kongenital</b></p>
+    <ol>
+      <li>
+        <strong>Tindakan bedah (Operasi)</strong>
+        <p>
+          Tindakan operasi dilakukan segera pada katarak yang signifikan secara visual yaitu berukuran diameter > 3 mm. Pengangkatan katarak dapat dilakukan tanpa pemasangan lensa intraokular (IOL) dan dengan pemasangan IOL yang disesuaikan
+          dengan usia bayi. Usia yang lebih muda pada pengangkatan katarak anak bertujuan mencegah terjadinya ambliopia deprivatif. Operasi yang dilakukan dengan cara melakukan pergantian lensa mata dengan lensa mata buatan yang didapatkan
+          dari lensa mata yang sudah dihancurkan sebelumnya dengan alat khusus. Operasi katarak pada bayi dilakukan sebelum bayi mencapai usia 17 minggu untuk mencegah adanya kerusakan mata atau mata malas.
+        </p>
+      </li>
+      <li>
+        <strong>Tindakan Non bedah</strong>
+        <p>
+          Tindakan non bedah pada katarak yang dialami oleh bayi dilakukan dengan observasi dan pelebaran pupil. Observasi dilakukan pada katarak yang berukuran &lt; 3 mm atau terletak perisentral. Terapi pelebaran pupil dengan sikloplegik
+          diberikan pada katarak bilateral parsial atau pada batas ambliopia sampai dapat dilakukan operasi katarak dengan pemasangan lensa intraolukar pada usia 2 atau 3 tahun saat pertumbuhan bola mata sudah stabil.
+        </p>
+      </li>
+      <li>
+        <strong>Penggunaan Alat Bantu Penglihatan</strong>
+        <p>
+          Setelah tindakan operasi, meski telah mendapatkan lensa mata baru, bayi biasanya masih membutuhkan alat bantu seperti kacamata atau lensa kontak khusus agar penglihatannya bisa berfungsi dengan lebih baik. Dalam beberapa kasus,
+          lensa kontak khusus dipasang pada permukaan mata (kornea) yang digunakan untuk membantu memulihkan penglihatan bayi setelah lensa mata anak dihilangkan.
+        </p>
+      </li>
+    </ol>
+
+    {% elif usia == "40 Tahun atau Lebih" %}
+    <p><b>Katarak Senilis</b></p>
+    <ol>
+      <li>
+        <strong>Tindakan Non Bedah</strong>
+        <p>
+          Pelebaran pupil dengan pemberian 2,5% phenylephrine atau penggunaan kacamata refraktif dapat membantu kegiatan sehari-hari, maka pembedahan tidak diperlukan. Cyclopentolate dan atropin dapat digunakan, kemudian salah satu obat
+          tetes mata katarak yang dapat menghancurkan katarak yaitu Lanosterol.
+        </p>
+      </li>
+      <li>
+        <strong>ECCE (Extra Capsular Cataract Extraction) </strong>
+        <p>
+          ECCE merupakan teknik operasi katarak konvensional. Pada operasi katarak ini, lensa dikeluarkan melalui sayatan selebar 8—10 mm. Teknik operasi ini membutuhkan waktu penyembuhan dan pemulihan yang cukup lama dibandingkan dua
+          teknik lainnya. Teknik ini dikembangkan dengan melakukan insisi kecil pada bagian limbus. Tidak diperlukan penjahitan pada teknik ini dengan proses penyembuhan yang lebih cepat, resiko astigmatis yang lebih kecil, dan biaya yang
+          lebih efektif.
+        </p>
+      </li>
+      <li>
+        <strong>ICCE (Intracapsular Capsular Cataract Extraction) </strong>
+        <p>
+          ICCE merupakan teknik operasi dengan pengangkatan seluruh lensa memerluka insisi selebar 12-14 mm yang mana memerlukan penyembuhan lebih lama dan resiko astigmatis yang lebih besar. Pembedahan bilateral diperlukan untuk
+          meminimalkan aniseikonia pada mata pasien
+        </p>
+      </li>
+      <li>
+        <strong>Phacoemulsification </strong>
+        <p>
+          Phacoemulsification merupakan Teknik operasi katarak tanpa jahitan. Teknik ini adalah teknik terbaru yang menggunakan probe ultrasonik. Insisi dilakukan sebesar 2-3 mm pada arah jam 2-3. Teknik ini menghasilkan luka yang dapat
+          sembuh dengan sendirinnya, astigmatis yang normal, serta kekuatan jaringan luka yang lebih baik. Pembedahan ini menggunakan sistem aspirasi-irigasi untuk mengambil jaringan korteks den fragmen nukleus. Pasien bisa pulih dan sembuh
+          lebih cepat dengan operasi lebih nyaman. Waktu operasi phacoemusification juga lebih cepat, yakni sekitar 10—15 menit. Selain operasinya lebih nyaman, waktu pemulihan (recovery) juga lebih singkat, yakni sekitar 2 minggu hingga 1
+          bulan.
+        </p>
+      </li>
+    </ol>
+    {% endif %}
+
+    <!-- Rekomendasi Jenis Pekerjaan -->
+
+    {% if jenis_pekerjaan == "Paparan Bahan Kimia Berbahaya" %}
+    <p><b>Katarak Traumatika (Pekerja Yang Terpapar Bahan Kimia Berbahaya)</b></p>
+    <ol>
+      <li>
+        <strong>Tindakan Preventif</strong>
+        <p>
+          Pencegahan awal yang dapat dilakukan yaitu, mengurangi paparan bahan kimia berbahaya dan selalu menggunakan Alat Pelindung Diri ketika terpapar bahan kimia berbahaya. Nilai Ambang Batas yang diperkenankan bahan kimia berbahaya
+          terpapar pada manusia dapat ditinjau sesuai dengan jenis bahan kimia berbahaya pada Peraturan Menteri Nomor 5 Tahun 2018 Tentang Keselamatan dan Kesehatan Kerja Lingkungan Kerja.
+        </p>
+      </li>
+      <li>
+        <strong>ECCE (Extra Capsular Cataract Extraction) </strong>
+        <p>
+          ECCE merupakan teknik operasi katarak konvensional. Pada operasi katarak ini, lensa dikeluarkan melalui sayatan selebar 8—10 mm. Teknik operasi ini membutuhkan waktu penyembuhan dan pemulihan yang cukup lama dibandingkan dua
+          teknik lainnya. Teknik ini dikembangkan dengan melakukan insisi kecil pada bagian limbus. Tidak diperlukan penjahitan pada teknik ini dengan proses penyembuhan yang lebih cepat, resiko astigmatis yang lebih kecil, dan biaya yang
+          lebih efektif.
+        </p>
+      </li>
+      <li>
+        <strong>Phacoemulsification </strong>
+        <p>
+          Phacoemulsification merupakan Teknik operasi katarak tanpa jahitan. Teknik ini adalah teknik terbaru yang menggunakan probe ultrasonik. Insisi dilakukan sebesar 2-3 mm pada arah jam 2-3. Teknik ini menghasilkan luka yang dapat
+          sembuh dengan sendirinnya, astigmatis yang normal, serta kekuatan jaringan luka yang lebih baik. Pembedahan ini menggunakan sistem aspirasi-irigasi untuk mengambil jaringan korteks den fragmen nukleus. Pasien bisa pulih dan sembuh
+          lebih cepat dengan operasi lebih nyaman. Waktu operasi phacoemusification juga lebih cepat, yakni sekitar 10—15 menit. Selain operasinya lebih nyaman, waktu pemulihan (recovery) juga lebih singkat, yakni sekitar 2 minggu hingga 1
+          bulan.
+        </p>
+      </li>
+    </ol>
+
+    {% elif jenis_pekerjaan == "Paparan Sinar Radiasi X" or jenis_pekerjaan == "Paparan Sinar Inframerah" or jenis_pekerjaan == "Paparan Sinar Ultra Violet" or jenis_pekerjaan == "Paparan Sinar Radioaktif" %}
+    <p><b>Katarak Traumatika (Pekerja Yang Terpapar Radiasi Sinar)</b></p>
+    <ol>
+      <li>
+        <strong>Tindakan Preventif</strong>
+        <p>
+          Pencegahan awal yang dapat dilakukan yaitu, mengurangi paparan radiasi sinar dan selalu menggunakan Alat Pelindung Diri ketika terpapar radiasi sinar. Berdasarkan Peraturan Menteri Nomor 5 Tahun 2018 Tentang Keselamatan dan
+          Kesehatan Kerja Lingkungan Kerja, waktu pemaparan radiasi sinar UV yang diperkenankan yaitu 8 jam/hari dengan paparan efektif 0.0001 mW/cm2.
+        </p>
+      </li>
+      <li>
+        <strong>ECCE (Extra Capsular Cataract Extraction) </strong>
+        <p>
+          ECCE merupakan teknik operasi katarak konvensional. Pada operasi katarak ini, lensa dikeluarkan melalui sayatan selebar 8—10 mm. Teknik operasi ini membutuhkan waktu penyembuhan dan pemulihan yang cukup lama dibandingkan dua
+          teknik lainnya. Teknik ini dikembangkan dengan melakukan insisi kecil pada bagian limbus. Tidak diperlukan penjahitan pada teknik ini dengan proses penyembuhan yang lebih cepat, resiko astigmatis yang lebih kecil, dan biaya yang
+          lebih efektif.
+        </p>
+      </li>
+      <li>
+        <strong>Phacoemulsification </strong>
+        <p>
+          Phacoemulsification merupakan Teknik operasi katarak tanpa jahitan. Teknik ini adalah teknik terbaru yang menggunakan probe ultrasonik. Insisi dilakukan sebesar 2-3 mm pada arah jam 2-3. Teknik ini menghasilkan luka yang dapat
+          sembuh dengan sendirinnya, astigmatis yang normal, serta kekuatan jaringan luka yang lebih baik. Pembedahan ini menggunakan sistem aspirasi-irigasi untuk mengambil jaringan korteks den fragmen nukleus. Pasien bisa pulih dan sembuh
+          lebih cepat dengan operasi lebih nyaman. Waktu operasi phacoemusification juga lebih cepat, yakni sekitar 10—15 menit. Selain operasinya lebih nyaman, waktu pemulihan (recovery) juga lebih singkat, yakni sekitar 2 minggu hingga 1
+          bulan.
+        </p>
+      </li>
+    </ol>
+    {% endif %}
+
+    <!-- Rekomendasi Riwayat Penyakit -->
+
+    {% if riwayat_penyakit != "Anda tidak memiliki riwayat penyakit atau riwayat penyakit Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+    <p><b>Katarak Komplikata</b></p>
+    <ol>
+      <li>
+        <strong>Tindakan Bedah (Operasi)</strong>
+        <p>
+          Tindakan ini perlu perhatian khusus pada premedikasi sebelum operasi, waktu yang tepat, dan rencana tindakan operasi. Premedikasi sebelum operasi dapat diberikan kortikosteroid oral dan atau topikal selama 1- 2 minggu sebelum
+          operasi. Terapi profilaksis dapat diberikan sebelum dilakukannya operasi. Menurut American association of ophthalmology terapi profilaksis menggunakan kortikosteroid oral 0.5-1.0 mg/kg/hari selama 3 hari dan/atau kortikosteroid
+          topikal walaupun terdapat perbedaan opini untuk durasi dan dosis. Tindakan operasi yang dapat dilakukan yaitu dengan Teknik Phacoemulsification. Dimana Teknik operasi katarak tanpa jahitan, dan teknik terbaru yang menggunakan
+          probe ultrasonik. Insisi dilakukan sebesar 2-3 mm pada arah jam 2-3. Teknik ini menghasilkan luka yang dapat sembuh dengan sendirinnya, astigmatis yang normal, serta kekuatan jaringan luka yang lebih baik. Pembedahan ini
+          menggunakan sistem aspirasi-irigasi untuk mengambil jaringan korteks den fragmen nukleus. Pasien bisa pulih dan sembuh lebih cepat dengan operasi lebih nyaman. Waktu operasi phacoemusification juga lebih cepat, yakni sekitar 10—15
+          menit. Selain operasinya lebih nyaman, waktu pemulihan (recovery) juga lebih singkat, yakni sekitar 2 minggu hingga 1 bulan.
+        </p>
+      </li>
+    </ol>
+    {% endif %}
+
+    <!-- Rekomendasi Riwayat Luka -->
+
+    {% if riwayat_luka != "Anda tidak memiliki riwayat luka atau riwayat luka Anda tidak mempengaruhi penyebab terjadinya katarak" %}
+    <p><b>Katarak Traumatika (Luka Memar/Tusuk dan Trauma Tumpul)</b></p>
+    <ol>
+      <li>
+        <strong>ECCE (Extra Capsular Cataract Extraction) </strong>
+        <p>
+          ECCE merupakan teknik operasi katarak konvensional. Pada operasi katarak ini, lensa dikeluarkan melalui sayatan selebar 8—10 mm. Teknik operasi ini membutuhkan waktu penyembuhan dan pemulihan yang cukup lama dibandingkan dua
+          teknik lainnya. Teknik ini dikembangkan dengan melakukan insisi kecil pada bagian limbus. Tidak diperlukan penjahitan pada teknik ini dengan proses penyembuhan yang lebih cepat, resiko astigmatis yang lebih kecil, dan biaya yang
+          lebih efektif.
+        </p>
+      </li>
+      <li>
+        <strong>Phacoemulsification </strong>
+        <p>
+          Phacoemulsification merupakan Teknik operasi katarak tanpa jahitan. Teknik ini adalah teknik terbaru yang menggunakan probe ultrasonik. Insisi dilakukan sebesar 2-3 mm pada arah jam 2-3. Teknik ini menghasilkan luka yang dapat
+          sembuh dengan sendirinnya, astigmatis yang normal, serta kekuatan jaringan luka yang lebih baik. Pembedahan ini menggunakan sistem aspirasi-irigasi untuk mengambil jaringan korteks den fragmen nukleus. Pasien bisa pulih dan sembuh
+          lebih cepat dengan operasi lebih nyaman. Waktu operasi phacoemusification juga lebih cepat, yakni sekitar 10—15 menit. Selain operasinya lebih nyaman, waktu pemulihan (recovery) juga lebih singkat, yakni sekitar 2 minggu hingga 1
+          bulan.
+        </p>
+      </li>
+    </ol>
+    {% endif %} {% elif prediction == "Mata Normal" %}
+    <h4>Rekomendasi Untuk Pasien</h4>
+
+    <p><b>Mata Normal</b></p>
+    <ol>
+      <li>
+        <strong>Melakukan pemeriksaan mata secara rutin setiap 1 tahun sekali</strong>
+        <p>
+          Masalah penglihatan yang tidak ditangani akan berkembang semakin parah, sebaiknya dihindari memakai lensa kontak atau kacamata yang tidak lagi cocok untuk Anda karena dapat menyebabkan masalah penglihatan dan sakit kepala.
+          Konsultasikan kepada dokter spesialis mata apabila mengalami keluhan pada penglihatan.
+        </p>
+      </li>
+      <li>
+        <strong>Mengonsumsi makanan yang sehat dan bergizi</strong>
+        <p>
+          Untuk menjaga kesehatan mata. Mengonsumsi makanan yang mengandung banyak vitamin A adalah salah satu cara untuk menjaga kesehatan mata seperti wortel, kuning telur, susu, Yogurt. Vitamin A ini memiliki peran dalam produksi
+          rhodopsin pada retina yang berguna untuk penglihatan pada malam hari dan dapat membantu menjaga kelembapan mata sehingga terhindar dari mata kering. Selain itu mengonsumsi alpukat juga dapat mempengaruhi Kesehatan mata, karena
+          alpukat mengandung lutein yang merupakan salah satu nutrisi yang berperan penting dalam mencegah mata katarak serta degenerasi macula.
+        </p>
+      </li>
+      <li>
+        <strong>Mengistirahatkan mata</strong>
+        <p>
+          Hampir semua orang merasakan mata menjadi tidak nyaman setelah duduk seharian di depan layar komputer. Hal ini disebabkan mata berkedip 25% lebih sedikit dari biasanya. Satu hal yang bisa dilakukan adalah menutup mata dan
+          menghitung sampai 5 sebelum membukanya kembali. Hal lainnya adalah berpaling dari layar monitor dan fokus pada sebuah objek yang jauh. Lakukan selama beberapa menit setiap 30 menit.
+        </p>
+      </li>
+      <li>
+        <strong>Menghindari rokok</strong>
+        <p>
+          Menghindari merokok sejak dini adalah hal terbaik untuk menjaga kesehatan salah satunya yaitu kesehatan mata. Dampak merokok bagi kesehatan mata yaitu dapat meningkatkan risiko munculnya penyakit katarak, degenerasi makula, dan
+          kerusakan saraf optik yang mampu menyebabkan kebutaan serta merusak retina mata.
+        </p>
+      </li>
+      <li>
+        <strong>Menggunakan kacamata anti UV</strong>
+        <p>
+          Mata yang terlalu sering terpapar sinar ultraviolet memiliki risiko mengalami katarak, degenerasi makila, kornea terbakar, dan bahkan kanker mata. Perlunya pemakaian seperti kaca mata hitam sangat bermanfaat untuk perlindungan
+          mata dari sinar UV. Ketika membeli kacamata, pastikan yang dapat memantulkan paling tidak 98% radiasi UV.
+        </p>
+      </li>
+    </ol>
+
+    {% endif %}
+  </div>
+
+  <div>
+    <a href="/try" class="btn">Coba lagi</a>
+  </div>
+</div>
+
 {% endblock %}
